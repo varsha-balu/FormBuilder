@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row">
+<div class="flex flex-col md:flex-row min-h-[100vh]">
   <app-left-panel  [fieldGroups]="fieldGroups" [selectedGroup]="selectedGroup" (export)="exportToJson()" (selectGroup)="onGroupSelected($event)" (openPopup) = "openCreatePopup()" class="w-full md:w-1/4 p-4 border-b bg-white md:border-r"></app-left-panel>
   <app-middle-panel [selectedGroup]="selectedGroup" (editGroup)="onEdit($event)"  (deleteGroup)="onDelete($event)" (copyGroup)="onCopy($event)" (openPopup) = "openCreatePopup()"
                     class="w-full md:w-2/4 p-4 bg-gray-100 border-b md:border-r"></app-middle-panel>

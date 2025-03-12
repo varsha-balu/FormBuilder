@@ -1,27 +1,53 @@
-# FormBuilder
+# 🏗️ Angular Form Builder
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+An interactive form builder built using **Angular 16+** and **Tailwind CSS**. This project allows users to dynamically create, edit, and manage form fields, structured into customizable field groups. The form configuration is stored in local storage, ensuring data persistence.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 **Features**
 
-## Code scaffolding
+- **Drag-and-drop Form Fields**  
+  - Single Line Text, Multi Line Text, Number, Date, Time, Date & Time, Dropdown, Radio, Checkbox, File Upload
+- **Field Groups**  
+  - Create, edit, delete, copy, select, and reorder field groups
+- **Dynamic Form Building**  
+  - Add, edit, reorder, and delete form elements in the middle panel
+- **Validation**  
+  - Supports minLength, maxLength, and required validation
+- **Local Storage Integration**  
+  - Automatically saves form structure and restores it on page reload
+- **Responsive UI**  
+  - Styled with Tailwind CSS
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 🧑‍💻 **Technologies Used**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular 15+** (Component-based architecture)  
+- **Tailwind CSS** (Utility-first styling)  
+- **RxJS** (Reactive programming)  
+- **TypeScript** (Strongly typed JavaScript)  
+- **Local Storage** (Data persistence)  
+- **Angular CDK** (Drag-and-drop functionality)
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 📦 **Packages Installed**
 
-## Running end-to-end tests
+Ensure you have the following dependencies installed:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+# Angular CLI (if not already installed)
+npm install -g @angular/cli
 
-## Further help
+# Install project dependencies
+npm install
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Drag-and-drop (CDK)
+npm install @angular/cdk
+
+# Tailwind CSS
+npm install -D tailwindcss
+
+# Initialize Tailwind config
+npx tailwindcss init
