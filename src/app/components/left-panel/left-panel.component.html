@@ -1,0 +1,22 @@
+<!-- Header -->
+<div class="p-4 h-full">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-sm font-bold">Field Groups</h2>
+    <button (click)="triggerCreate()" class="text-blue-500 text-sm">+ Create new</button>
+  </div>
+  <!-- Field Groups with Drag-and-Drop -->
+  <div cdkDropList [cdkDropListData]="fieldGroups" (cdkDropListDropped)="onDrop($event)" class="space-y-2">
+    <div *ngFor="let group of fieldGroups; let i = index" cdkDrag
+      class="p-2 bg-white border rounded flex justify-between items-center cursor-move"
+      (click)="selectFieldGroup(group)" [ngClass]="{'!bg-blue-100 border-blue-300':group.id === selectedGroup.id}">
+
+      <div>
+        <div class="flex-1"> <span class="mr-2 text-gray-500">⋮⋮</span> <span class="text-xs">{{ group.name }}</span></div>
+      </div>
+    </div>
+  </div>
+ 
+  <button (click)="exportToJson()" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+    Export JSON
+  </button>
+</div>

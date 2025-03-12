@@ -1,0 +1,178 @@
+<div class="p-10">
+  <div *ngIf="selectedGroup" class="p-6 flex justify-between bg-white shadow rounded mb-4">
+    <div>
+      <h3 class="text-base font-bold">{{ selectedGroup.name }}</h3>
+      <p class="text-gray-600 text-xs">{{ selectedGroup.description }}</p>
+    </div>
+
+    <div class="flex space-x-2 align-top">
+      <button (click)="editGroup.emit(selectedGroup)" class="w-4"><img src="../../../assets/edit_icon.png" /></button>
+      <button (click)="copyGroup.emit(selectedGroup)" class="w-4"><img src="../../../assets/copy_icon.png" /></button>
+      <button (click)="deleteGroup.emit(selectedGroup.id)" class="w-4"><img src="../../../assets/delete_icon.png" />
+      </button>
+    </div>
+  </div>
+  <div id="middlePanel" cdkDropList [cdkDropListData]="fields.controls" (cdkDropListDropped)="onDrop($event)"
+    [formGroup]="form" class="space-y-4  rounded min-h-[300px]">
+    <!-- Loop through the FormArray fields -->
+
+    <div formArrayName="formFields" *ngIf="fields.controls.length > 0">
+      <div *ngFor="let field of fields.controls; let i = index" cdkDrag [formGroupName]="i"
+        class="border p-4 rounded bg-white shadow mb-4 flex flex-row items-center">
+        <!-- Field Header -->
+        <div cdkDragHandle class="cursor-move mr-2 ">
+          <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M5 8a1 1 0 100-2 1 1 0 000 2zM5 12a1 1 0 100-2 1 1 0 000 2zM5 16a1 1 0 100-2 1 1 0 000 2zM9 8a1 1 0 100-2 1 1 0 000 2zM9 12a1 1 0 100-2 1 1 0 000 2zM9 16a1 1 0 100-2 1 1 0 000 2z">
+            </path>
+          </svg>
+        </div>
+
+        <div class="w-full">
+          <div class="flex justify-between items-center">
+            <label class="block text-base">{{ field.get('label')?.value }}</label>
+
+            <div class="flex space-x-2">
+              <button (click)="editField(i)" class="w-4">
+                <img src="../../../assets/edit_icon.png" alt="Edit" />
+              </button>
+              <button (click)="copyField(i)" class="w-4">
+                <img src="../../../assets/copy_icon.png" alt="Copy" />
+              </button>
+              <button (click)="removeField(i)" class="w-4">
+                <img src="../../../assets/delete_icon.png" alt="Delete" />
+              </button>
+            </div>
+          </div>
+           <div class="text-xs text-gray-500 mb-2 italic">{{ field.get('description')?.value }}</div>
+
+          <!-- Dynamic Form Fields -->
+          <div>
+            <!-- Text Input -->
+            <input *ngIf="field.get('type')?.value === 'text'" type="text" formControlName="value"
+              [placeholder]="field.get('placeholder')?.value" [minlength]="field.get('minLength')?.value"
+              [maxlength]="field.get('maxLength')?.value" [required]="field.get('required')?.value"
+              class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+
+            <!-- Textarea -->
+            <textarea *ngIf="field.get('type')?.value === 'textarea'" formControlName="value"
+              [placeholder]="field.get('placeholder')?.value" [minlength]="field.get('minLength')?.value"
+              [maxlength]="field.get('maxLength')?.value" [required]="field.get('required')?.value"
+              class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)"></textarea>
+
+            <!-- Number Input -->
+            <input *ngIf="field.get('type')?.value === 'number'" type="number" formControlName="value"
+              [placeholder]="field.get('placeholder')?.value" [min]="field.get('minLength')?.value"
+              [max]="field.get('maxLength')?.value" [required]="field.get('required')?.value"
+              class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+
+            <!-- Date Picker -->
+            <input *ngIf="field.get('type')?.value === 'date'" type="date" formControlName="value"
+              [required]="field.get('required')?.value" class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+
+            <!-- Time Picker -->
+            <input *ngIf="field.get('type')?.value === 'time'" type="time" formControlName="value"
+              [required]="field.get('required')?.value" class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+
+
+            <input *ngIf="field.get('type')?.value === 'datetime-local'" type="datetime-local" formControlName="value"
+              [required]="field.get('required')?.value" class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+
+            <!-- Dropdown -->
+            <select *ngIf="field.get('type')?.value === 'select'" formControlName="value"
+              [required]="field.get('required')?.value" class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)">
+              <option *ngFor="let option of field.get('options')?.value" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+
+            <!-- File Upload -->
+            <input *ngIf="field.get('type')?.value === 'file'" type="file" [required]="field.get('required')?.value"
+              class="w-full p-2 border rounded"
+              [class.border-red-500]="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)" />
+            <div *ngIf="field.get('value')?.invalid && (field.get('value')?.dirty || field.get('value')?.touched)"
+              class="text-red-500 text-sm mt-1">
+              <p *ngIf="field.get('value')?.errors?.['required']">
+                This field is required.
+              </p>
+              <p *ngIf="field.get('value')?.errors?.['minlength']">
+                Minimum length should be {{ field.get('validations')?.get('minLength')?.value }} characters.
+              </p>
+              <p *ngIf="field.get('value')?.errors?.['maxlength']">
+                Maximum length is {{ field.get('validations')?.get('maxLength')?.value }} characters.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div *ngIf="isOpenField" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow-lg w-96">
+    <h3 class="text-xl font-bold mb-4">Edit Field</h3>
+
+    <!-- Label -->
+    <label class="block font-medium">Label</label>
+    <input [(ngModel)]="newField.label" class="w-full p-2 border rounded mb-3" />
+
+    <!-- Placeholder -->
+    <label class="block font-medium">Placeholder</label>
+    <input [(ngModel)]="newField.placeholder" class="w-full p-2 border rounded mb-3" />
+
+    <!-- Placeholder -->
+    <label class="block font-medium">Description</label>
+    <input [(ngModel)]="newField.description" class="w-full p-2 border rounded mb-3" />
+
+
+    <!-- Default Value (dynamic input based on type) -->
+    <label class="block font-medium">Default Value</label>
+    <ng-container [ngSwitch]="newField.type">
+      <input *ngSwitchCase="'text'" [(ngModel)]="newField.value" placeholder="Enter text"
+        class="w-full p-2 border rounded mb-3" />
+      <textarea *ngSwitchCase="'textarea'" [(ngModel)]="newField.value" placeholder="Enter text"
+        class="w-full p-2 border rounded mb-3"></textarea>
+      <input *ngSwitchCase="'number'" type="number" [(ngModel)]="newField.value"
+        class="w-full p-2 border rounded mb-3" />
+      <input *ngSwitchCase="'date'" type="date" [(ngModel)]="newField.value" class="w-full p-2 border rounded mb-3" />
+      <input *ngSwitchCase="'time'" type="time" [(ngModel)]="newField.value" class="w-full p-2 border rounded mb-3" />
+      <select *ngSwitchCase="'select'" [(ngModel)]="newField.value" class="w-full p-2 border rounded mb-3">
+        <option *ngFor="let option of newField.options" [value]="option">{{ option }}</option>
+      </select>
+    </ng-container>
+
+    <!-- Validations -->
+    <h4 class="text-lg font-semibold mb-2">Validations</h4>
+
+    <!-- Required Checkbox -->
+    <label class="flex items-center space-x-2 mb-3">
+      <input type="checkbox" [(ngModel)]="newField.validations.required" />
+      <span>Required</span>
+    </label>
+
+    <!-- Min Length -->
+    <label class="block font-medium">Minimum Length</label>
+    <input type="number" [(ngModel)]="newField.validations.minLength" class="w-full p-2 border rounded mb-3" />
+
+    <!-- Max Length -->
+    <label class="block font-medium">Maximum Length</label>
+    <input type="number" [(ngModel)]="newField.validations.maxLength" class="w-full p-2 border rounded mb-3" />
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end space-x-2">
+      <button (click)="closePopup()" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+      <button (click)="saveChanges(newField)" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+    </div>
+  </div>
+</div>

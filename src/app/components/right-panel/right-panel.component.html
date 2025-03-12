@@ -1,0 +1,54 @@
+<h2 class="text-xl font-bold mb-4">Elements</h2>
+
+
+<div cdkDropList id="rightPanel" [cdkDropListData]="formElements"
+  [cdkDropListConnectedTo]="['middlePanel']">
+  <div class="text-sm font-bold text-gray-500 mb-2">TEXT</div>
+  <div *ngFor="let element of formElements.slice(0, 3)" cdkDrag [cdkDragData]="element"
+    class="p-[10px]  rounded mb-2 bg-white cursor-grab flex items-center">
+    <div class="bg-gray-200 p-2 rounded">
+      <i [class]="element.icon"></i>
+    </div>
+    <div class="flex-1 ml-2">
+      <div class="font-medium">{{ element.label }}</div>
+      <div class="text-xs text-gray-500">{{ element.description }}</div>
+    </div>
+
+  </div>
+
+  <div class="text-sm font-bold text-gray-500 mb-2">DATE</div>
+  <div *ngFor="let element of formElements.slice(3, 6)" cdkDrag [cdkDragData]="element"
+    class="p-[10px]  rounded mb-2 bg-white cursor-grab flex items-center">
+    <div class="bg-gray-200 p-2 rounded">
+      <i [class]="element.icon"></i>
+    </div>
+    <div class="flex-1 ml-2">
+      <div class="font-medium">{{ element.label }}</div>
+      <div class="text-xs text-gray-500">{{ element.description }}</div>
+    </div>
+  </div>
+
+  <div class="text-sm font-bold text-gray-500 mb-2">MULTI</div>
+  <div *ngFor="let element of formElements.slice(6, 9)" cdkDrag [cdkDragData]="element"
+    class="p-[10px]  rounded mb-2 bg-white cursor-grab flex items-center">
+    <div class="bg-gray-200 p-2 rounded">
+      <i [class]="element.icon"></i>
+    </div>
+    <div class="flex-1 ml-2">
+      <div class="font-medium">{{ element.label }}</div>
+      <div class="text-xs text-gray-500">{{ element.description }}</div>
+    </div>
+  </div>
+
+  <div class="text-sm font-bold text-gray-500 mb-2">MEDIA</div>
+  <div *ngFor="let element of formElements.slice(9)" cdkDrag [cdkDragData]="element"
+    class="p-[10px]  rounded mb-2 bg-white cursor-grab flex items-center">
+    <div class="bg-gray-200 p-2 rounded">
+      <i [class]="element.icon"></i>
+    </div>
+    <div class="flex-1 ml-2">
+      <div class="font-medium">{{ element.label }}</div>
+      <div class="text-xs text-gray-500">{{ element.description }}</div>
+    </div>
+  </div>
+</div>
